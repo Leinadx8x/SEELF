@@ -14,6 +14,13 @@ public class MovimentacaoEstoque {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne // Muitas movimentações podem ser de UM sapato
+    @JoinColumn(name = "sapato_id", nullable = false)
+    private Sapato sapato;
+
+    @Column(nullable = false)
+    private int quantidade;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoMovimentacao tipo;
@@ -24,11 +31,4 @@ public class MovimentacaoEstoque {
     @ManyToOne
     @JoinColumn(name = "funcionario_id", nullable = false)
     private Funcionario usuario;
-
-    @ManyToOne //
-    @JoinColumn(name = "sapato_id", nullable = false)
-    private Sapato sapato;
-
-    @Column(nullable = false)
-    private int quantidade;
 }

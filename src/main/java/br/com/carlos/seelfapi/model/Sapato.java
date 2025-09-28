@@ -28,4 +28,6 @@ public class Sapato {
 
     private LocalDateTime dataCadastro;
     private LocalDateTime ultimaAtualizacao;
+
+
 }
