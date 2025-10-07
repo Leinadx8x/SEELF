@@ -3,7 +3,7 @@ package br.com.carlos.seelfapi.model;
 import br.com.carlos.seelfapi.model.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -14,21 +14,13 @@ public class MovimentacaoEstoque {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // Muitas movimentações podem ser de UM sapato
-    @JoinColumn(name = "sapato_id", nullable = false)
-    private Sapato sapato;
-
-    @Column(nullable = false)
-    private int quantidade;
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private Produto product;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoMovimentacao tipo;
+    private TipoMovimentacao type;
 
-    @Column(nullable = false)
-    private LocalDateTime dataHora;
-
-    @ManyToOne
-    @JoinColumn(name = "funcionario_id", nullable = false)
-    private Funcionario usuario;
+    private int quantity;
+    private LocalDate date;
 }
