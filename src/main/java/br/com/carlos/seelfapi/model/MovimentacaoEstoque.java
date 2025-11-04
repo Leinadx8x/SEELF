@@ -3,7 +3,7 @@ package br.com.carlos.seelfapi.model;
 import br.com.carlos.seelfapi.model.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -15,12 +15,29 @@ public class MovimentacaoEstoque {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produto product;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoMovimentacao type;
 
+    @Column(nullable = false)
     private int quantity;
-    private LocalDate date;
+
+    @Column(nullable = false)
+    private String reason;
+
+    @Column(nullable = false)
+    private String responsibleUser;
+
+    private String notes;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime timestamp;
+
+    @PrePersist
+    protected void onCreate() {
+        timestamp = LocalDateTime.now();
+    }
 }

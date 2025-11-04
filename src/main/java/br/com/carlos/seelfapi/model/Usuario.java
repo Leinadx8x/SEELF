@@ -14,12 +14,14 @@ public class Usuario {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String nomeCompleto; // Corresponde a 'name' no frontend
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PerfilUsuario role;
+    private PerfilUsuario role; // Corresponde a 'funcao'/'role'
+
+    private String funcao; // Campo que estava faltando
 }

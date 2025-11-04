@@ -1,3 +1,4 @@
+// src/main/java/br/com/carlos/seelfapi/service/ProdutoServiceImpl.java
 package br.com.carlos.seelfapi.service;
 
 import br.com.carlos.seelfapi.model.Produto;
@@ -17,9 +18,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public Produto salvar(Produto produto) {
-        // Regra de negócio: Definir a data de cadastro ao salvar um novo sapato
-        produto.setDataCadastro(LocalDateTime.now());
-        produto.setUltimaAtualizacao(LocalDateTime.now());
+        // A lógica de data agora está na própria classe Produto com @PrePersist
         return produtoRepository.save(produto);
     }
 
@@ -42,18 +41,19 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto atualizar(Long id, Produto produtoDetails) {
 
         Produto produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sapato não encontrado com o id: " + id));
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado com o id: " + id));
 
+        
         produto.setSku(produtoDetails.getSku());
-        produto.setDescricao(produtoDetails.getDescricao());
-        produto.setCor(produtoDetails.getCor());
-        produto.setTamanho(produtoDetails.getTamanho());
-        produto.setQuantidade(produtoDetails.getQuantidade());
-        produto.setPrecoCusto(produtoDetails.getPrecoCusto());
-        produto.setPrecoVenda(produtoDetails.getPrecoVenda());
-        produto.setUltimaAtualizacao(LocalDateTime.now());
-
-        // Salva o sapato atualizado
+        produto.setName(produtoDetails.getName());
+        produto.setDescription(produtoDetails.getDescription());
+        produto.setCategory(produtoDetails.getCategory());
+        produto.setPrice(produtoDetails.getPrice());
+        produto.setImageUrl(produtoDetails.getImageUrl());
+        produto.setCurrentStock(produtoDetails.getCurrentStock());
+        produto.setMinimumStock(produtoDetails.getMinimumStock());
+        
+       
         return produtoRepository.save(produto);
     }
 }
